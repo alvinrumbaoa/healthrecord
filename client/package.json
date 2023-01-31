@@ -1,0 +1,27 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.4.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fireworks-js/react": "^2.10.1",
+    "@next/font": "13.1.6",
+    "axios": "^1.2.6",
+    "eslint": "8.33.0",
+    "eslint-config-next": "13.1.6",
+    "fireworks-js": "^2.10.1",
+    "framer-motion": "^8.5.5",
+    "jsonwebtoken": "^9.0.0",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
