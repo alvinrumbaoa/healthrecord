@@ -1,6 +1,8 @@
 import React ,{useState} from 'react';
 import axios from 'axios';
 import {Containrt, Flex, Box, Heading, Text, Input,Button, Center,FormControl, FormLabel, Select, Textarea, useToast} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+const router = useRouter()
 
 
 const signup = () => {
@@ -49,7 +51,7 @@ const handleChange = (e) => {
 	
 			setConfirmReg("Registration complete, please log in to continue!");
 			setErrs({});
-			navigate("/login");
+			router.push("/login");
 		})
 		.catch((err) => {
 			console.log(err);
