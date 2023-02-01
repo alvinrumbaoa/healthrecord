@@ -7,7 +7,7 @@ require("./config/mongoose.config");
 
 app.use(cors({
 	credentials: true,
-	origin: "http://localhost:3001" ||"http://localhost:3000"  ,
+	origin: "http://localhost:3000" ||"https://healthrecord.vercel.app/"  ,
 }));
 
 app.use(cookieParser());
@@ -15,4 +15,4 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require("./routes/user.route")(app);
-app.listen(process.env.SERVER_PORT, () => console.log(`Server listening on port ${process.env.SERVER_PORT}`));
+app.listen(process.env.PORT || 5000, () => console.log(`Server listening on port ${process.env.PORT || 5000}`));
