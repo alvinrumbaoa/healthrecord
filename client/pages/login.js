@@ -17,7 +17,7 @@ const login = () => {
  	const handleLogin = (event) => {
         event.preventDefault();
         axios.post(
-            `http://shielded-caverns-06460.herokuapp.com/api/users/login`,
+            `https://shielded-caverns-06460.herokuapp.com/api/users/login`,
             {
             email: email,
             password: password,
