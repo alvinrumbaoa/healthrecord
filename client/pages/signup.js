@@ -1,12 +1,13 @@
 import React ,{useState} from 'react';
 import axios from 'axios';
-import {Containrt, Flex, Box, Heading, Text, Input,Button, Center,FormControl, FormLabel, Select, Textarea, useToast} from '@chakra-ui/react'
+import {Container, Flex, Box, Heading, Text, Input,Button, Center,FormControl, FormLabel, Select, Textarea, useToast} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-const router = useRouter()
+
 
 
 const signup = () => {
 const [confirmReg, setConfirmReg] = useState("");
+const router = useRouter()
 const [errs, setErrs] = useState({});
 const [ user, setUser ] = useState({
     companyName: "",
@@ -30,7 +31,7 @@ const handleChange = (e) => {
 	const register = (e)=> {
 		e.preventDefault();
 
-		axios.post("http://localhost:8000/api/users/register", 
+		axios.post(`${process.env.HERO_API_URL}/api/users/register`, 
 		user,             
 		{
 			withCredentials: true,
