@@ -31,7 +31,7 @@ const handleChange = (e) => {
 	const register = (e)=> {
 		e.preventDefault();
 
-		axios.post(`${process.env.HERO_API_URL}/api/users/register`, 
+		axios.post(`http://shielded-caverns-06460.herokuapp.com/api/users/register`, 
 		user,             
 		{
 			withCredentials: true,
