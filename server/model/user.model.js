@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Required"],
         enum: [
             "Administrator",
+            "CEO",
             "Manager",
             "Staff",
         ]

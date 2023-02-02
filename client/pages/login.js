@@ -14,10 +14,10 @@ const login = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
- 	const handleLogin = (event) => {
+ 	const handleLogin = async (event) => {
         event.preventDefault();
         axios.post(
-            `https://shielded-caverns-06460.herokuapp.com/api/users/login`,
+            `http://localhost:8000/api/users/login`,
             {
             email: email,
             password: password,
@@ -27,34 +27,24 @@ const login = () => {
             }
         )
         .then((res) => {
-            console.log(res.data);
-            router.push("/dashboard");
+          if(res.data.errors) {
+            console.log(res.data.errors)
+        }
+        else {
+            console.log(res.data)
+            router.push('/dashboard')
+        }
         })
         .catch((err) => {
-            console.log(err.response);
-            setErrorMessage(err.response.data.message);
+            console.log(err);
+            setErrorMessage(err);
         });
     }
 
 
   return (
 	<>
-	<Script>
-        {`function handleCredentialResponse(response) {
-          console.log("Encoded JWT ID token: " + response.credential);
-        }
-        window.onload = function () {
-          google.accounts.id.initialize({
-            client_id: "YOUR_GOOGLE_CLIENT_ID",
-            callback: handleCredentialResponse
-          });
-          google.accounts.id.renderButton(
-            document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large" }  // customization attributes
-          );
-          google.accounts.id.prompt(); // also display the One Tap dialog
-        }`}
-    </Script>
+	
 	
 	<Flex h="100vh" align="center" justify="center">
 	    <Box p={20} border="2px solid black" align="center" justify="center">                         
