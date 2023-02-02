@@ -8,7 +8,7 @@ require("./config/mongoose.config");
 
 app.use(cors({
 	credentials: true,
-	origin: "http://localhost:3000" ||"https://healthrecord.vercel.app/"  ,
+	origin: "https://healthrecord.vercel.app/"  ,
 }));
 
 app.use(cookieParser());
