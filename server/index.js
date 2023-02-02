@@ -6,12 +6,12 @@ const app = express();
 
 require("./config/mongoose.config");
 app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+	res.header("Access-Control-Allow-Origin", "http://healthrecord.vercel.app/"); // update to match the domain you will make the request from
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
   });
 
-app.use(cors({ origin: "http://localhost:3000" , credentials: true  }));
+app.use(cors({ origin: "http://healthrecord.vercel.app/" , credentials: true  }));
 
 
 app.use(cookieParser());

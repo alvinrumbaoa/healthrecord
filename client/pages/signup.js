@@ -34,7 +34,7 @@ console.log(user)
 	const register = async (e)=> {
 		e.preventDefault();
       
-         axios.post('http://localhost:8000/api/users/register',{ 
+         axios.post('https://shielded-caverns-06460.herokuapp.com/api/users/register',{ 
 		    ...user})
 		.then((res) => {
             if(res.data.errors) {
