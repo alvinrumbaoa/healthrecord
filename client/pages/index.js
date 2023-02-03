@@ -4,7 +4,8 @@ import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import {Button , Flex, Heading, Text} from '@chakra-ui/react'
 import {useSession, signIn ,signOut} from 'next-auth/react'
-
+import { redirect } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/router'
 
 
 
@@ -12,8 +13,8 @@ import {useSession, signIn ,signOut} from 'next-auth/react'
 
 export default function Home() {
 
-
-  const { session , loading} = useSession();
+  const push = useRouter()
+  const { data:session , loading} = useSession();
 
   if (loading) {
     return <Flex><Text>Loading</Text></Flex>
@@ -22,7 +23,11 @@ export default function Home() {
   
 
   
-
+  const handleSignout  = async () => 
+  { 
+   const data =  await signOut({redirect : false, callbackUrl: "/"})
+   push.push(data.url)
+  }
 
   return (
     <>
@@ -33,10 +38,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
      
-     
+    
       {
       session ? (
-        <Heading>You are Signed in</Heading>
+        <>
+         <Heading>Signed In as {session.user.email}</Heading>
+          <Button onClick={handleSignout}>Sign Out</Button>
+        </>
       ): (
         <>
          <Heading>You are not Signed In</Heading>

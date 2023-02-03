@@ -1,9 +1,8 @@
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import jwt from "jsonwebtoken"
-import CredentialsProvider from "next-auth/providers/credentials";
-
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "../../../database/connectDb"
 export const authOptions = {
 
   providers: [
@@ -18,6 +17,7 @@ export const authOptions = {
 	
 	
   ],
+  adapter: MongoDBAdapter(clientPromise),
   
 
 }
