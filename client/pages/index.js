@@ -2,10 +2,26 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import { Fireworks } from '@fireworks-js/react'
-import {Button} from '@chakra-ui/react'
+import {Button , Flex, Heading, Text} from '@chakra-ui/react'
+import {useSession, signIn ,signOut} from 'next-auth/react'
+
+
+
+
+
 
 export default function Home() {
+
+
+  const { session , loading} = useSession();
+
+  if (loading) {
+    return <Flex><Text>Loading</Text></Flex>
+  }
+
+  
+
+  
 
 
   return (
@@ -16,26 +32,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-       <Fireworks
-      options={{
-        rocketsPoint: {
-          min: 0,
-          max: 100
-        },
-        particles: 150
-      }}
-      style={{
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        position: 'fixed',
-        background: '#000'
-      }}
-    />
-   
-      </main>
+     
+     
+      {
+      session ? (
+        <Heading>You are Signed in</Heading>
+      ): (
+        <>
+         <Heading>You are not Signed In</Heading>
+          <Button onClick={signIn}>Sign In</Button>
+        </>
+     
+      )}
     </>
   )
 }
+

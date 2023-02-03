@@ -13,16 +13,21 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fireworks-js/react": "^2.10.1",
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@next/font": "13.1.6",
     "axios": "^1.2.6",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "fireworks-js": "^2.10.1",
+    "formik": "^2.2.9",
     "framer-motion": "^8.5.5",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^4.13.0",
     "next": "13.1.6",
+    "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-social-login-buttons": "^3.6.1"
+    "react-social-login-buttons": "^3.6.1",
+    "yup": "^0.32.11"
   }
 }

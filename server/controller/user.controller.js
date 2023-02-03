@@ -82,3 +82,17 @@ module.exports.logout = (req, res) => {
     res.clearCookie("usertoken");
     res.json({ message: "You have successfully logged out" });
 }
+
+module.exports.getLoggedInUser = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+        res.json(user);
+        console.log(res.json(user))
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({ message: "Not authorized" });
+    }
+    };
