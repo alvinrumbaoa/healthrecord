@@ -23,6 +23,11 @@ module.exports.register = (req, res) => {
 module.exports.login = (req, res) => {
     console.log("In login");
     
+    let expires = new Date(Date.now() + 86400000); // 1 day
+        if (rememberMe) {
+        expires = new Date(Date.now() + 2592000 * 1000); // 30 days
+        }
+
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (user === null) {
@@ -40,7 +45,7 @@ module.exports.login = (req, res) => {
                                 }, process.env.JWT_SECRET),
                                 {
                                     httpOnly: true,
-                                    expires: new Date(Date.now() + 86400000)
+                                    expires: expires
                                 })
                                 .cookie("user", JSON.stringify({
                                     _id: user._id,
@@ -59,6 +64,7 @@ module.exports.login = (req, res) => {
                                         position: user.position
                                     }
                                 })
+                                
                         } else {
                             console.log("Invalid password");
                             res.status(400).json({ message: "Email address and/or password is incorrect" });

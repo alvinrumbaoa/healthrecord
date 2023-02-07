@@ -5,6 +5,14 @@ const Dashboard = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const expiryTime = sessionStorage.getItem('expiryTime');
+  
+    if (jwtToken && expiryTime && new Date().getTime() > expiryTime) {
+      // log the user out and remove the token from session storage
+      sessionStorage.removeItem('jwtToken');
+      sessionStorage.removeItem('expiryTime');
+    }
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/getLoggedInUser", {

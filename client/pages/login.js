@@ -5,6 +5,9 @@ import {useRouter} from 'next/router';
 import {motion} from 'framer-motion';
 import Link from 'next/link';
 import { useFormik } from 'formik';
+import {useSession, signIn ,signOut} from 'next-auth/react'
+import { redirect } from 'next/dist/server/api-utils'
+
 
 
 import {
@@ -21,13 +24,34 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
 import axios from 'axios';
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import { GithubLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 
 const login = () => {
+  const { data:session , loading} = useSession();
+
+  if (loading) {
+    return <Flex><Text>Loading</Text></Flex>
+  }
+
+  
+
+  
+  const handleSignout  = async () => 
+  { 
+   const data =  await signOut({redirect : false, callbackUrl: "/"})
+   push.router(data.url)
+  }
+
 	const router = useRouter()
 	const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const handleRememberMe = () => {
+    setRememberMe(!rememberMe);
+  };
+
 
  	const handleLogin = async (event) => {
        
@@ -54,7 +78,13 @@ const login = () => {
             const accessToken = res.data.accessToken;
             console.log(res.data)
             router.push('/dashboard')
-            localStorage.setItem('accessToken', accessToken);
+            if (rememberMe) {
+              localStorage.setItem('email', email);
+              localStorage.setItem('password', password);
+            } else {
+              localStorage.removeItem('email');
+              localStorage.removeItem('password');
+            }
         }
         })
         .catch((err) => {
@@ -110,7 +140,7 @@ const login = () => {
                 direction={{ base: 'column', sm: 'row' }}
                 align={'start'}
                 justify={'space-between'}>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox onChange={handleRememberMe}>Remember me</Checkbox>
                 <Link href="/forgot">Forgot Password?</Link>
               </Stack>
               <Button type="submit"
@@ -121,6 +151,21 @@ const login = () => {
                 }}>
                 Sign in
               </Button>
+              <Stack>
+              {
+                  session ? (
+                    <>
+                      <Button onClick={handleSignout}>Sign Out</Button>
+                    </>
+                  ): (
+                    <>
+                    <GithubLoginButton onClick={signIn} />
+                    </>
+                
+                  )}
+                  
+                
+              </Stack>
             </Stack>
             </form>
           </Stack>

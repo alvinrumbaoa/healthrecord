@@ -1,3 +1,4 @@
+const { Timestamp } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -78,8 +79,18 @@ const patientSchema = new Schema({
   visits: [{
     type: Schema.Types.ObjectId,
     ref: 'Visit'
-  }]
-});
+  }],
+  medicalDocuments: [
+    {
+    type: Schema.Types.ObjectId,
+    ref: "Document"
+    }
+   ],
+   createdAt: {
+    type: Date,
+    default: Date.now
+    }
+}, {timestamp: true} );
 
 const Patient = mongoose.model('Patient', patientSchema);
 
