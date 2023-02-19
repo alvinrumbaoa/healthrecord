@@ -89,7 +89,11 @@ const patientSchema = new Schema({
    createdAt: {
     type: Date,
     default: Date.now
-    }
+    },
+    appointments: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Appointment'
+    }]
 }, {timestamp: true} );
 
 const Patient = mongoose.model('Patient', patientSchema);
